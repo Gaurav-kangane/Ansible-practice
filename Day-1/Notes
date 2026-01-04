@@ -1,0 +1,29 @@
+What Ansible is
+    Ansible is an automation tool used to manage servers and applications. You use it to configure systems, install software, deploy apps, and run repetitive tasks across many machines from one control node.
+
+It is:
+    Agentless. No software needed on target servers
+    
+    Push based. Runs tasks over SSH
+    
+    Simple. Uses YAML, not complex scripts
+
+
+How Ansible works
+    Control Node: The machine where Ansible is installed (your EC2, laptop, or CI server)
+    
+    Managed Nodes: Servers Ansible connects to using SSH
+    
+    Inventory: List of servers Ansible manages
+    
+    Playbook: YAML file that defines what tasks to run
+    
+    Module: Small unit of work like install a package, start a service
+
+
+Basic Architecture=
+\\Control Node (Ansible)
+        |
+       SSH
+        |
+Managed Nodes (EC2, VM, Servers)
