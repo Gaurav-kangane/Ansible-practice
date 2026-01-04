@@ -1,0 +1,49 @@
+1. Create two servers (EC2) without key pair one is control node where we are running ansible server and second is worker node that is our target server.
+
+2. Connect Ansible server --> sudo su - --> install ansible --> dnf install ansible -y
+
+3. Create ssh key for connecting target servers
+   ssh-keygen    --> press enter till key creates.
+
+4. Copy the public key and add to target server cd .ssh -->  cat id_rsa.pub --> copy the key.
+
+5. Connect the target server in different tab and go to .ssh --> cd .ssh --> patste the key in --> vi authorized_keys
+
+6. Go to ansible server and connecect through ssh -->  ssh <private-ip-of-target-server> -->    e.g.  ssh 172.31.1.227 
+
+7. You will successfully connected to target server then press exit 
+
+8. vi /etc/ansible/hosts  --> enter the private ip of target server and save and exit
+
+9. Then run command --> ansible all -a "yum install git -y" -b
+
+10. Go to target server and check git version, git will be installed in target server
+
+11. ansible all -a "yum install maven -y" -b
+
+12. Check in target server mvn -version
+
+13. Go to instances console and create AMI from target server and to to AMI option and create ec2 instance from AMI.
+
+14. Give target-2 name to new server and connect it
+
+15. Go to Ansible server and add private ip of target-2 server --> vi /etc/ansible/hosts
+    e.g 172.31.1.227
+        172.31.11.121
+
+16. Then run -->  ansible all -a "yum install tree -y" -b
+
+17. check in target-2 server --> tree   --> tree will be installed
+
+18. we can also add the ip in the group --> vi /etc/ansible/hosts  e.g  [test]
+                                                                        172.31.1.227
+                                                                        [dev]
+                                                                        172.31.11.121
+
+19. run --> ansible test -a "yum install docker -y" -b
+
+20. Go to test group server i.e target-1 and check --> docker version --> also chcek in target-2
+
+21. We can also add ip in another file --> vi inventory --> add the private ip
+
+22. Run this command for configuration --> ansible -i inventory all -a "yum install python -y" -b
