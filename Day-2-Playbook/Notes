@@ -1,0 +1,22 @@
+What is an Ansible Playbook?
+    A playbook is a YAML file that tells Ansible:
+    
+    Which hosts to run on
+    
+    Which user to connect as
+    
+    What tasks to execute
+    
+    Whether sudo is required
+    
+    Think of it as instructions written in steps, executed over SSH.- name: Play description
+  
+
+
+Basic Structure
+  hosts: target_group
+  become: yes
+  tasks:
+    - name: Task description
+      module_name:
+        option: value
