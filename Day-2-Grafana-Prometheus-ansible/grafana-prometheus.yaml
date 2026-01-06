@@ -1,0 +1,66 @@
+- hosts: monitoring
+  become: yes
+  tasks:
+    - name: Install required packages
+      yum:
+        name:
+          - wget
+          - tar
+        state: present
+
+    - name: Download Prometheus
+      get_url:
+        url: https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.linux-amd64.tar.gz
+        dest: /tmp/prometheus.tar.gz
+
+    - name: Extract Prometheus
+      unarchive:
+        src: /tmp/prometheus.tar.gz
+        dest: /opt/
+        remote_src: yes
+
+    - name: Copy Prometheus binary
+      copy:
+      src: /opt/prometheus-2.52.0.linux-amd64/prometheus
+        dest: /usr/local/bin/prometheus
+        remote_src: yes
+        mode: '0755'
+
+    - name: Create Prometheus config
+      copy:
+        src: prometheus.yaml
+        dest: /etc/prometheus.yml
+
+    - name: Create Prometheus service
+      copy:
+        dest: /etc/systemd/system/prometheus.service
+        content: |
+          [Unit]
+          Description=Prometheus
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/prometheus \
+            --config.file=/etc/prometheus.yml
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start Prometheus
+      systemd:
+        name: prometheus
+        enabled: yes
+        state: started
+
+    - name: Install Grafana (skip GPG check)
+      yum:
+        name: https://dl.grafana.com/oss/release/grafana-10.4.1-1.x86_64.rpm
+        state: present
+        disable_gpg_check: yes
+
+
+    - name: Start Grafana
+      systemd:
+        name: grafana-server
+        enabled: yes
+        state: started
