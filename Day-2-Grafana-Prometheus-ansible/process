@@ -1,0 +1,65 @@
+1. Create 3 servers for ansible, target and grafana-prometheus(monitoring).
+
+2. Connect 2 servers thorugh ssh 
+
+3. create prometheus-node-exporter.yaml file and run --> ansible-playbook prometheus-node-exporter.yaml
+
+4. create prometheus.yaml file
+
+5. create grafana-prometheus.yaml file and run --> ansible-playbook grafana-prometheus.yaml
+
+6. Access URLs
+   Prometheus -->  http://monitor-ip:9090
+   Grafana -->     http://monitor-ip:3000
+   Default login -->  admin/admin
+
+7. Add Prometheus datasource in Grafana (mandatory)
+   Open Grafana -->  http://<monitor-ip>:3000
+   Login (default) -->  admin / admin
+
+   Go to
+   Connections → Data sources
+    
+    Click Add data source 
+    Select Prometheus
+    Set URL:
+    http://localhost:9090
+    Click Save & Test
+
+8. Import dashboard again
+    Now import the dashboard:
+    
+    Dashboards → Import
+    
+    Enter dashboard ID (for Node Exporter use 1860)
+    
+    Now you WILL see a dropdown to select:
+    Prometheus
+
+    Click Import
+
+9. Verify data is coming from Prometheus
+    Method 1 (Recommended): Using Grafana Explore
+    Open Grafana
+    http://<monitor-ip>:3000
+    
+    Left menu → Explore (compass icon)
+    
+    Top left:   
+      Data source → select Prometheus
+
+10. In the query box, type:
+    up
+    Click Run query
+
+11. Expected result
+
+    You should see results like:
+    
+    up{job="node_exporter", instance="172.31.0.233:9100"} = 1
+    up{job="node_exporter", instance="172.31.0.234:9100"} = 1
+    
+    
+    = 1 → target is UP (healthy)
+    
+    = 0 → target is DOWN
