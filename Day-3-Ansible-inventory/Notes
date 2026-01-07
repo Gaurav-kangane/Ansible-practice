@@ -1,0 +1,12 @@
+What is Ansible inventory
+    An inventory is the list of hosts Ansible manages, grouped in a logical way.
+    
+    Ansible uses inventory to answer three questions:
+    
+    Which servers exist?
+    
+    How are they grouped?
+    
+    How do I connect to them?
+    
+    Without inventory, Ansible only knows about localhost.
