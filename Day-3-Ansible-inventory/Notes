@@ -57,3 +57,9 @@ Why roles are used
     separate logic from configuration
     
     follow best practices (team friendly)
+
+ansible-galaxy init <rolename>   ## to create roles in ansible
+
+For reference :
+
+https://github.com/nareshdevopscloud/devops-ansible/tree/main/roles/first_role
