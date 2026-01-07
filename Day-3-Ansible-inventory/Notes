@@ -10,3 +10,50 @@ What is Ansible inventory
     How do I connect to them?
     
     Without inventory, Ansible only knows about localhost.
+
+****************************************************************************************************************************
+
+What “include” means in Ansible
+    “Include” lets you split automation into smaller files and reuse them.
+    Instead of one huge playbook, you break logic into tasks, roles, or vars and include them when needed.
+    
+    This improves:
+    
+    Readability
+    
+    Reusability
+    
+    Conditional execution
+
+******************************************************************************************************************************
+
+What is an Ansible role
+    A role is a standard way to organize automation.
+    
+    Instead of writing everything in one playbook, you group:
+    
+    tasks
+    
+    variables
+    
+    handlers
+    
+    templates
+    
+    files
+    
+    into a reusable structure.
+    
+    Think of a role as a self-contained module for a purpose like installing Apache, configuring users, or setting up Docker.
+
+
+Why roles are used
+    Roles help you:
+    
+    reuse automation across projects
+    
+    keep playbooks small and readable
+    
+    separate logic from configuration
+    
+    follow best practices (team friendly)
