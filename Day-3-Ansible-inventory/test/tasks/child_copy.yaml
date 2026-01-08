@@ -1,0 +1,5 @@
+- name: copying the files
+  copy:
+    src: ../files/index.html
+    dest: /var/www/html/index.html
+  notify: Restart web server
